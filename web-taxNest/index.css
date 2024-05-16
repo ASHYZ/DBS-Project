@@ -1,0 +1,238 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global styles */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #c5f3d9;/* Emerald green background */
+  color: #000000;
+}
+
+/* Header styles */
+header {
+  background-color: #ffffff;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Times New Roman', Times, serif;
+  height: 100px;
+}
+
+header img {
+  height: 100px;
+  width: 110px;
+  margin-left: 2px;
+}
+
+header h1 {
+  font-size: 2rem;
+  flex-grow: 1;
+  margin-left: 10px;
+  color: #004d00; /* Adjust to desired shade of green */
+}
+
+/* Subheading (h2) styles */
+h2 {
+  font-family:'Times New Roman', Times, serif;
+  font-size: 2.6rem;
+  font-weight: 700; /* Optional: if you want a bold weight */
+  margin-bottom: 10px;
+  color: #000000;
+  text-shadow: 1px 1px 2px #004d00;
+}
+
+h3 {
+  font-family:'Times New Roman', Times, serif;
+  font-size: 1.4rem;
+  font-weight: 700; /* Optional: if you want a bold weight */
+  margin-bottom: 10px;
+  color: #1d5e1c;
+}
+
+nav {
+  display: flex;
+  justify-content: flex-end;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  padding: 0;
+}
+
+nav ul li {
+  margin-right: 20px;
+}
+
+/* Navigation link styles */
+nav ul li a {
+  color: #004d00; /* Adjust to desired shade of green */
+  text-decoration: none;
+  font-size: 20px;
+}
+
+/* Navigation link hover styles */
+nav ul li a:hover {
+  color: #1fc51f; /* Darker shade of green for hover state */
+}
+
+/* Auth links styles */
+.auth-links {
+  display: flex;
+  align-items: center;
+  margin-left: 30px;
+}
+
+.auth-links a {
+  color: #004d00; /* Adjust to desired shade of green */
+  text-decoration: none;
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.auth-links a:hover {
+  color: #1fc51f; /* Darker shade of green for hover state */
+}
+
+/* Option list styles */
+.option-list {
+  background-color: #bfe1ff; /* Light gray background */
+  padding: 10px 20px;
+  height: 47px;
+}
+
+.option-list ul {
+  list-style: none;
+  display: flex;
+  justify-content: flex-start; /* Start from extreme left */
+}
+
+.option-list ul li {
+  margin-right: 35px;
+}
+
+.option-list ul li a {
+  color: #141d40;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.option-list ul li a:hover {
+  color: #7d837d;
+}
+
+/* Main content styles */
+.section {
+  padding: 40px 0;
+}
+
+.section .container, .section .content-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap; /* Ensures items can wrap */
+}
+
+.section:nth-of-type(odd) .content-container {
+  flex-direction: row-reverse;
+}
+
+.section img {
+  max-width: 30%;
+  height: auto;
+  margin: 0 20px; /* Adds space around images */
+  opacity: 0; /* Initially hidden, will be made visible on scroll */
+  box-shadow: 0 8px 16px rgba(13, 113, 81, 0.664);
+}
+
+/* Text content styles */
+.text-content {
+  flex: 1;
+  padding-right: 20px; /* Adjust as needed */
+  max-width: 800px; /* Sets maximum width to control line length */
+  margin: 0 auto; /* Center the text content */
+}
+
+/* Keyframes for animations */
+@keyframes slideInFromLeft {
+  from {
+      transform: translateX(-50%);
+      opacity: 0;
+  }
+  to {
+      transform: translateX(0);
+      opacity: 1;
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+      transform: translateX(50%);
+      opacity: 0;
+  }
+  to {
+      transform: translateX(0);
+      opacity: 1;
+  }
+}
+
+/* Animation trigger classes */
+.animate-from-left {
+  animation: slideInFromLeft 1.5s forwards ease-out;
+}
+
+.animate-from-right {
+  animation: slideInFromRight 1.5s forwards ease-out;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .content-container {
+      flex-direction: column;
+  }
+
+  .content-container img,
+  .text-content {
+      max-width: 90%;
+      margin:15px auto; /* Center items with automatic margins */
+  }
+
+  nav ul {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  nav ul li {
+      margin: 10px 0;
+  }
+}
+
+/* Footer styles */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+footer p, footer nav ul li a {
+  font-size: 1rem;
+  color: #fff;
+  text-decoration: none;
+}
+
+footer nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+footer nav ul li {
+  margin-right: 10px;
+}

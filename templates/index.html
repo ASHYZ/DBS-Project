@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box; /* Makes sure padding doesn't affect overall width */
+        }
+
+        button {
+            background-color: #5CAB7D;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #489963;
+        }
+
+        fieldset {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        legend {
+            padding: 0 5px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #result {
+            margin-top: 20px;
+            background: #eee;
+            padding: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tax Calculator</h1>
+    <form id="taxCalculatorForm">
+        <div class="form-section">
+            <label for="ageCategory">Age Category:</label>
+            <select id="ageCategory" name="ageCategory">
+                <option value="below60">Below 60</option>
+                <option value="60to80">60 to 80</option>
+                <option value="above80">Above 80</option>
+            </select>
+        </div>
+
+        <label for="grossSalary">Gross salary income:</label>
+        <input type="number" id="grossSalary" name="grossSalary">
+
+        <label for="otherIncome">Annual income from other sources:</label>
+        <input type="number" id="otherIncome" name="otherIncome">
+
+        <!-- Deductions section -->
+        <fieldset>
+            <legend>Deductions</legend>
+
+            <label for="investment80C">Investment under 80C:</label>
+            <input type="number" id="investment80C" name="investment80C">
+
+            <label for="medicalInsurance">Medical Insurance Premium u/s 80D:</label>
+            <input type="number" id="medicalInsurance" name="medicalInsurance">
+
+            <label for="charityDonation">Donation to charity u/s 80G:</label>
+            <input type="number" id="charityDonation" name="charityDonation">
+
+            <label for="educationLoan">Interest on Educational Loan u/s 80E:</label>
+            <input type="number" id="educationLoan" name="educationLoan">
+
+            <label for="savingsInterest">Interest on deposits in saving account u/s 80TTA/TTB:</label>
+            <input type="number" id="savingsInterest" name="savingsInterest">
+
+            <!-- HRA Exemption section -->
+            <fieldset>
+                <legend>HRA Exemption</legend>
+
+                <label for="basicSalary">Basic salary received per annum:</label>
+                <input type="number" id="basicSalary" name="basicSalary">
+
+                <label for="dearnessAllowance">Dearness Allowance (DA) received per annum:</label>
+                <input type="number" id="dearnessAllowance" name="dearnessAllowance">
+
+                <label for="hraReceived">HRA received per annum:</label>
+                <input type="number" id="hraReceived" name="hraReceived">
+
+                <label for="totalRentPaid">Total rent paid per annum:</label>
+                <input type="number" id="totalRentPaid" name="totalRentPaid">
+
+                <label for="metroCity">Do you live in a metro city?</label>
+                <select id="metroCity" name="metroCity">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+            </fieldset>
+
+        </fieldset>
+
+        <button type="submit">Calculate</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        const TAX_BRACKETS = {
+            'below60': [
+                { upperBound: 250000, rate: 0 },
+                { upperBound: 500000, rate: 0.05 },
+                { upperBound: 750000, rate: 0.1 },
+                { upperBound: 1000000, rate: 0.15 },
+                { upperBound: 1250000, rate: 0.2 },
+                { upperBound: 1500000, rate: 0.25 },
+                { upperBound: Infinity, rate: 0.3 }
+            ],
+            '60to80': [
+                { upperBound: 300000, rate: 0 },
+                { upperBound: 500000, rate: 0.05 },
+                { upperBound: 750000, rate: 0.1 },
+                { upperBound: 1000000, rate: 0.15 },
+                { upperBound: 1250000, rate: 0.2 },
+                { upperBound: 1500000, rate: 0.25 },
+                { upperBound: Infinity, rate: 0.3 }
+            ],
+            'above80': [
+                { upperBound: 500000, rate: 0 },
+                { upperBound: 750000, rate: 0.05 },
+                { upperBound: 1000000, rate: 0.1 },
+                { upperBound: 1250000, rate: 0.15 },
+                { upperBound: 1500000, rate: 0.2 },
+                { upperBound: Infinity, rate: 0.25 }
+            ]
+        };
+
+        document.getElementById('taxCalculatorForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission behavior
+
+            // Get form inputs
+            const ageCategory = document.getElementById('ageCategory').value;
+            const grossSalary = parseFloat(document.getElementById('grossSalary').value) || 0;
+            const otherIncome = parseFloat(document.getElementById('otherIncome').value) || 0;
+            const investment80C = parseFloat(document.getElementById('investment80C').value) || 0;
+            const medicalInsurance = parseFloat(document.getElementById('medicalInsurance').value) || 0;
+            const charityDonation = parseFloat(document.getElementById('charityDonation').value) || 0;
+            const educationLoan = parseFloat(document.getElementById('educationLoan').value) || 0;
+            const savingsInterest = parseFloat(document.getElementById('savingsInterest').value) || 0;
+            const basicSalary = parseFloat(document.getElementById('basicSalary').value) || 0;
+            const dearnessAllowance = parseFloat(document.getElementById('dearnessAllowance').value) || 0;
+            const hraReceived = parseFloat(document.getElementById('hraReceived').value) || 0;
+            const totalRentPaid = parseFloat(document.getElementById('totalRentPaid').value) || 0;
+            const metroCity = document.getElementById('metroCity').value;
+
+            // Calculate tax
+            const tax = calculateTax(ageCategory, grossSalary, otherIncome, investment80C, medicalInsurance, charityDonation, educationLoan, savingsInterest, basicSalary, dearnessAllowance, hraReceived, totalRentPaid, metroCity);
+
+            // Display result
+            const resultElement = document.getElementById('result');
+            resultElement.textContent = `Tax Payable: ₹${tax.toFixed(2)}`;
+        });
+        function calculateTax(ageCategory, grossSalary, otherIncome, investment80C, medicalInsurance, charityDonation, educationLoan, savingsInterest, basicSalary, dearnessAllowance, hraReceived, totalRentPaid, metroCity) {
+            // Define tax brackets based on age category
+            const applicableBrackets = TAX_BRACKETS[ageCategory] || TAX_BRACKETS['below60']; // Default to 'below60' if ageCategory is not defined
+        
+            // Total taxable income
+            let taxableIncome = grossSalary + otherIncome;
+        
+            // Deductions
+            let totalDeductions = investment80C + medicalInsurance + charityDonation + educationLoan + savingsInterest;
+            taxableIncome -= totalDeductions;
+        
+            // HRA Exemption
+            let hraExemption = metroCity === "Yes" ? Math.min(hraReceived, 0.5 * (basicSalary + dearnessAllowance)) : Math.min(hraReceived, 0.4 * (basicSalary + dearnessAllowance));
+            taxableIncome -= hraExemption;
+        
+            // Calculate the tax based on the applicable brackets
+            let taxPayable = 0;
+            let remainingIncome = taxableIncome;
+        
+            for (const bracket of applicableBrackets) {
+                if (remainingIncome <= 0) break;
+        
+                if (remainingIncome > bracket.upperBound) {
+                    taxPayable += ((bracket.upperBound - (taxableIncome - remainingIncome)) * bracket.rate);
+                    remainingIncome -= (bracket.upperBound - (taxableIncome - remainingIncome));
+                } else {
+                    taxPayable += (remainingIncome * bracket.rate);
+                    break;
+                }
+            }
+            
+            return taxPayable;
+        }
+    </script>
+</body>
+</html>

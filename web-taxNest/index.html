@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Tracking Software</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header>
+        <img src="images/logo.png" alt="TaxNest Logo" class="logo">
+        <h1>Financial Tracking Software</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="auth-links">
+            <a href="login.html">Login</a>
+            <span> | </span>
+            <a href="register.html">Register</a>
+        </div>
+    </header>
+    <div class="option-list">
+        <ul>
+             <li><a href="taxcalculator.html">Tax Calculator</a></li>
+            <li><a href="#budget-management">Budget management</a></li>
+            <li><a href="#recommends">Recommends</a></li>
+            <li><a href="#updates">Updates</a></li>
+        </ul>
+    </div>
+    <main>
+        <section id="home" class="section">
+            <div class="content-container">
+                <div class="text-content">
+                    <h2>Welcome to TaxNest</h2>
+                    <p>Empower Your Finances, Enhance Your Future
+                        Navigating the financial landscape can be complex, but with Financial Tracking Software, it becomes effortless. Designed for precision and simplicity, our sophisticated platform is your ally in demystifying tax computation and elevating budget management. Whether you're an entrepreneur optimizing business finances or an individual seeking clarity in personal finance, our suite of tools is crafted to ensure your financial well-being is always a priority</p>
+                    <h3>Tax Estimation Made Simple</h3>
+                    <p>Unravel the Complexities of Taxation with Ease
+                        Gone are the days of daunting tax work. With Financial Tracking Software, every number falls into place like clockwork. Input your financial figures—earnings, expenditures, and potential deductions—and watch as our intuitive system effortlessly unveils your tax obligations with pinpoint accuracy. Embrace the tranquility of hassle-free tax estimations and bid farewell to the arduous number crunching of yesteryears.</p>
+                </div>
+                <img src="images/tax-management.png" alt="Financial Planning">
+            </div>
+        </section>
+        
+        <section id="about" class="section">
+            <div class="content-container">
+                <div class="text-content">
+                    <h2>About Us</h2>
+                    <p>Innovation, Integrity, Insight
+                        At Financial Tracking Software, we're not just software developers; we're architects of financial confidence. Our dedicated team of fiscal experts fuses unwavering reliability with cutting-edge technology to sculpt a user-centric platform that resonates with ease and effectiveness. Every feature is a testament to our commitment to empowering users with insightful and empowering financial management tools.</p>
+                </div>
+                <img src="images/tax2.png" alt="About Us">
+            </div>
+        </section>
+        
+        <section id="services" class="section">
+            <div class="content-container">
+                <div class="text-content">
+                    <h2>Our Services</h2>
+                    <div class="service">
+                        <h3>Tax Estimation</h3>
+                        <p>Adapt and thrive in the fiscal framework with tailored tax calculations that evolve with your monthly earnings. Stay ahead, stay compliant, and navigate tax season with unparalleled confidence.</p>
+                    </div>
+                    <div class="service">
+                        <h3>Budget Management</h3>
+                        <p>Master the art of financial foresight with robust budgeting tools at your fingertips. Track, analyze, and optimize your expenses for a financial roadmap that aligns with your aspirations.</p>
+                    </div>
+                    <div class="service">
+                        <h3>Financial Planning Assistance</h3>
+                        <p>Envision your financial evolution with personalized advisory services designed to fortify your savings, curtail tax liabilities, and usher in a new era of informed economic decisions.</p>
+                    </div>
+                </div>
+                <img src="images/budget.png" alt="Financial Planning">
+            </div>
+        </section>
+        
+        <section id="contact" class="section">
+            <div class="content-container">
+                <div class="text-content">
+                    <h2>Contact Us</h2>
+                    <p>For inquiries or support, please contact us:</p>
+                    <ul>
+                        <li>Email: info@financialtrackingsoftware.com</li>
+                        <li>Phone: +1-123-456-7890</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Financial Tracking Software. All rights reserved.</p>
+            <nav>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+
+    <script src="submission.js"></script>
+
+   <script>
+//document.addEventListener('DOMContentLoaded', (event) => {
+    //window.addEventListener('scroll', () => {
+     //   document.querySelectorAll('.section img').forEach((img) => {
+      //      const rect = img.getBoundingClientRect();
+        //    if (rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)) {
+          //      img.classList.add('visible'); // Make image visible
+         //   }
+       // });
+  //  });
+//});
+document.addEventListener("DOMContentLoaded", function() {
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          const img = entry.target;
+          // Determine the animation direction based on if the section is odd or even
+          const section = img.closest('.section');
+          const index = Array.from(document.querySelectorAll('.section')).indexOf(section);
+          if (index % 2 === 0) { // Even sections
+            img.classList.add('animate-from-left');
+          } else { // Odd sections
+            img.classList.add('animate-from-right');
+          }
+          observer.unobserve(img); // Stop observing the image after animation
+        }
+      });
+    }, {
+      rootMargin: "0px",
+      threshold: 0.1 // Adjust if needed to trigger the animation sooner or later
+    });
+  
+    // Observe all images
+    document.querySelectorAll('.content-container img').forEach(img => {
+      observer.observe(img);
+    });
+  });
+  
+</script>
+</body>
+</html>

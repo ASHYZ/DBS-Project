@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
+    <title>Login In</title>
+</head>
+<body>
+    <div class="signin-container">
+        <div class="logo">
+            <img src="images/logo.png" alt="Amazon Clone">
+        </div>
+        <form class="login-form" onsubmit="redirectToTaxCalculator(event)">
+            <h1>Sign-In</h1>
+            <div class="form-group">
+              <label for="user_id">User ID</label>
+              <input type="user_id" id="user_id" required>
+          </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit">Sign In</button>
+           
+    <script>
+        function redirectToTaxCalculator(event) {
+            event.preventDefault(); // Prevent default form submission behavior
+            // Redirect to tax calculator page
+            window.location.href = "tax_calculator.html"; // Replace "tax_calculator.html" with the actual URL of your tax calculator page
+        }
+    </script>
+</body>
+</html>

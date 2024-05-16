@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Submission</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+          <img src="images/logo.png" alt="Amazon Clone">
+        </div>
+        <h1>USER REGISTRATION</h1>
+        <form id="myForm">
+            <div class="form-group">
+                <label for="user_id">User ID:</label>
+                <input type="text" id="user_id" name="user_id" required>
+            </div>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="usertype">User Type:</label>
+                <select id="usertype" name="usertype" required>
+                    <option value="">Select User Type</option>
+                    <option value="Business">Business</option>
+                    <option value="Employee">Employee</option>
+                </select>
+            </div>
+            <button type="submit">Register</button>
+            <div class="help-text">
+              <p>By continuing, you agree to TaxNest's Conditions of Use and Privacy Notice.</p>
+          </div>
+        </form>
+        <div id="message"></div>
+    </div>
+
+    <script src="submission.js"></script>
+    <script>
+        document.getElementById("myForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            // Perform form submission logic here (e.g., send data to server)
+            // For demonstration, let's assume the registration was successful
+            // Show success message
+            document.getElementById("message").innerText = "Successfully registered!";
+            // Enable option to go to home page
+            const homeLink = document.createElement("a");
+            homeLink.href = "index.html"; // Replace "home.html" with the actual URL of your home page
+            homeLink.textContent = "Go to Home Page";
+            document.getElementById("message").appendChild(homeLink);
+        });
+    </script>
+</body>
+</html>
+

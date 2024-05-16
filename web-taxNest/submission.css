@@ -1,0 +1,68 @@
+body {
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color:  #85BB65;
+}
+
+.container {
+  max-width: 800px; /* Increased max-width to accommodate three columns */
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: grid; /* Use CSS Grid layout */
+  grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+  gap: 15px; /* Gap between grid items */
+}
+
+label {
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* Adjust input width for better alignment */
+input,
+select {
+  width: 100%; /* Make inputs take up full width of their container */
+}
+
+
+input[type="text"],
+input[type="email"],
+button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  place-self: center; 
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#error-message {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+}
